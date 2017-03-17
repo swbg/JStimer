@@ -1,0 +1,131 @@
+body {
+    font-family: "Arial", sans-serif;
+    color: #004358;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+*, ::before, ::after {
+    box-sizing: inherit;
+    color: inherit;
+    background-color: inherit;
+}
+
+button {
+    color: #004358;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+
+button.mainControl {
+    width: 150px;
+    height: 50px;
+    border: none;
+}
+
+input {
+    border: none;
+    width: 8em;
+    display: block;
+}
+
+input:disabled {
+
+    color: inherit;
+}
+
+textarea:focus {
+    background-color: red;
+}
+
+.wrapper {
+    display: inline-block;
+    margin-top: 3em;
+}
+
+.container, .nav-container {
+    margin: 0 auto;
+    text-align: center;
+}
+.container {
+    display: inline-block;
+    padding: 1em;
+}
+.container-hidden {
+    display: none;
+}
+.nav-container {
+    text-align: left;
+}
+.timeDisplay, .timeDisplayFinished, .timeDisplayActive {
+    margin: 0;
+    font-size: 3em;
+    text-align: center;
+    border: none;
+    background-color: inherit;
+}
+.displayContainer {
+    padding-top: 0.6em;
+    padding-bottom: 1em;
+    text-align: center;
+}
+.timeDisplayFinished {
+    background-color: red;
+}
+.timeDisplayActive {
+    background-color: #00e600;
+}
+.navControl {
+    border: none;
+    width: 27%;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    font-size: 1em;
+}
+:focus {
+    outline: none;
+}
+::-moz-focus-inner {
+    border: 0;
+}
+
+/* Adobe Color CC Vitamin C */
+.stopwatchElement {
+    background-color: #FD7400;
+}
+.timerElement {
+    background-color: #BEDB39;
+}
+.tabataElement {
+    background-color: #FFE11A;
+}
+.additionalElement {
+    background-color: #1F8A70;
+}
+
+#tabataPreferences {
+    margin: 0 auto;
+    display: inline-block;
+    padding: 1em;
+}
+
+#tabataSlots, #tabataCycles {
+    width: 3em;
+}
+#tabataPreferences label {
+    display: block;
+    text-align: right;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+#tabataPreferences label input {
+    margin-left: 1em;
+    display: inline-block;
+}
+
+#timerContainer .timeDisplayActive {
+    background-color: inherit;
+}
