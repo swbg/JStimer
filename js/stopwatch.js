@@ -1,5 +1,12 @@
-function Stopwatch(display) {
+function Stopwatch(timeDisplay, lapDisplay) {
     this.running = false;
+    this.lap = function() {
+        var element = document.createElement("p");
+        element.appendChild(document.createTextNode(formatTime(time)));
+        time = 0;
+        update();
+        lapDisplay.appendChild(element);
+    };
     this.start = function() {
         if(!this.running) {
             this.running = true;
@@ -14,6 +21,10 @@ function Stopwatch(display) {
         }
     };
     this.reset = function() {
+        var id = lapDisplay.firstChild.id;
+        while (lapDisplay.lastChild.id !== id) {
+            lapDisplay.removeChild(lapDisplay.lastChild);
+        }
         time = 0;
         update();
     };
@@ -27,7 +38,7 @@ function Stopwatch(display) {
             time += currentTime - offset;
             offset = currentTime;
         }
-        display.value = formatTime(time);
+        timeDisplay.value = formatTime(time);
     }
     function formatTime(timeInMilliseconds) {
         var time = new Date(timeInMilliseconds);

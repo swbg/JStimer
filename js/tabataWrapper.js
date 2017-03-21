@@ -1,27 +1,41 @@
-function TabataWrapper(toggleButton) {
+function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slotsInput, cyclesInput) {
+    // finished && !running     --> initial state
+    // !finished && running     --> timer running
+    // !finished && !running    --> timer paused
+    // finished && running      --> timer finished
+
     this.timerList = [];
     this.cycles = 6;
-    this.finished = false;
+    this.finished = true;
     this.running = false;
-    this.started = false;
 
     var currentTimer = 0,
-        currentCycle = 1;
+        currentCycle = 1,
+        thisTabataWrapperObject = this,
+        memory = new Memory("tabata", recentlyUsedDisplay, 3, this);
 
+    this.getRunning = function() { return this.running; };
+    this.getFinished = function() { return this.finished; };
     this.reset = function() {
         applyToAll.bind(this)(function(timer) { timer.reset(); });
-        this.started = false;
-        this.finished = false;
+        this.running = false;
+        this.finished = true;
         currentTimer = 0;
         currentCycle = 1;
     };
     this.start = function() {
-        console.log(this);
         if(!this.running) {
-            if(!this.started) {
+            if(this.finished) {
                 applyToAll.bind(this)(function(timer) { timer.fixInput(); });
-                this.started = true;
+                this.finished = false;
                 currentCycle = 1;
+
+                var memoryString = "" + this.cycles + "x";
+                for(var i = 0; i < this.timerList.length; i++) {
+                    memoryString += " " + document.getElementById("ti" + (i+1)).value;
+                }
+                memory.add(memoryString);
+                memory.redraw();
             }
             this.running = true;
             this.timerList[currentTimer].start();
@@ -48,11 +62,46 @@ function TabataWrapper(toggleButton) {
             }
             else {
                 this.finished = true;
-                this.running = false;
+                this.running = true;
                 toggleButton.innerHTML = "OK";
             }
         }
     };
+    this.setValue = function(value) {
+        var values = value.split(" ");
+        this.cycles = values[0].substring(0, values[0].length-1);
+        slotsInput.value = values.length - 1;
+        cyclesInput.value = this.cycles;
+        while (displayContainer.hasChildNodes()) {
+            displayContainer.removeChild(displayContainer.firstChild);
+            this.timerList = [];
+        }
+        for(var i = 1; i < values.length; i++) {
+            this.addInput(values[i]);
+        }
+    };
+    this.addInput = function(value) {
+        var newInput = document.createElement("input");
+        newInput.className = "timeDisplay tabataInput";
+        newInput.id = "ti" + (this.timerList.length+1);
+        newInput.setAttribute("type", "text");
+        newInput.setAttribute("value", value);
+        newInput.setAttribute("autocomplete", "off");
+        displayContainer.appendChild(newInput);
+        newInput.addEventListener("focus", function() {
+            this.select();
+        });
+        var newTimer = new Timer(newInput, toggleButton, document.getElementById("audiotag1"), this);
+        newTimer.fixInput();
+        this.timerList.push(newTimer);
+        newInput.addEventListener("input", function() {
+            thisTabataWrapperObject.timerList[this.id.substring(2)-1].formatInput();
+        });
+    };
+    this.removeInput = function() {
+        displayContainer.removeChild(displayContainer.lastChild)
+        this.timerList.pop();
+    }
 
     function applyToAll(func) {
         for(var i = 0; i < this.timerList.length; i++) {

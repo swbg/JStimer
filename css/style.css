@@ -129,3 +129,27 @@ textarea:focus {
 #timerContainer .timeDisplayActive {
     background-color: inherit;
 }
+
+.recentlyUsedButton {
+    border: none;
+    display: block;
+    margin: 0 auto;
+    font-size: 1em;
+}
+
+.recentylUsedContainer {
+}
+
+.lapsDisplay {
+    font-size: 0.5em;
+}
+
+#stopwatchLapsHidden {
+    display: none;
+}
+#stopWatchLaps {
+    display: block;
+}
+#laps {
+    display: block;
+}

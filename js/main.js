@@ -38,7 +38,9 @@ function addSelectAllOnFocus(inputForm) {
 var stopwatchDisplay = document.getElementById("stopwatchDisplay"),
     stopwatchToggleButton = document.getElementById("stopwatchToggle"),
     stopwatchResetButton = document.getElementById("stopwatchReset"),
-    stopwatchObject = new Stopwatch(stopwatchDisplay);
+    stopwatchLapButton = document.getElementById("stopwatchLap"),
+    stopwatchLapDisplay = document.getElementById("stopwatchLapsHidden"),
+    stopwatchObject = new Stopwatch(stopwatchDisplay, stopwatchLapDisplay);
 
 stopwatchToggleButton.addEventListener("click", function() {
     if(stopwatchObject.running) {
@@ -47,6 +49,7 @@ stopwatchToggleButton.addEventListener("click", function() {
     }
     else {
         stopwatchObject.start();
+        stopwatchLapDisplay.id = "stopwatchLaps";
         stopwatchToggleButton.innerHTML = "Pause";
     }
 });
@@ -54,7 +57,14 @@ stopwatchToggleButton.addEventListener("click", function() {
 stopwatchResetButton.addEventListener("click", function() {
     if(!stopwatchObject.running) {
         stopwatchObject.reset();
+        stopwatchLapDisplay.id = "stopwatchLapsHidden";
         stopwatchToggleButton.innerHTML = "Start";
+    }
+});
+
+stopwatchLapButton.addEventListener("click", function() {
+    if(stopwatchObject.running) {
+        stopwatchObject.lap();
     }
 });
 
@@ -63,20 +73,25 @@ stopwatchResetButton.addEventListener("click", function() {
 var timerInput = document.getElementById("timerInput");
 var timerToggleButton = document.getElementById("timerToggle");
 var timerResetButton = document.getElementById("timerReset");
-var timerObject = new TimerWrapper(timerInput, timerToggleButton, document.getElementById("audiotag1"));
+var timerObject = new TimerWrapper(timerInput, timerToggleButton, document.getElementById("audiotag1"), document.getElementById("timerRecentlyUsed"));
 
 addSelectAllOnFocus(timerInput);
 
 timerInput.addEventListener("input", function() {
+    if(!(timerObject.getFinished() && !timerObject.getRunning())) {
+        var tmpvalue = this.value;
+        timerObject.reset();
+        this.value = tmpvalue;
+    }
     timerObject.formatInput();
 });
 timerToggleButton.addEventListener("click", function() {
-    if(!timerObject.running()) {
+    if(!timerObject.getRunning()) {
         timerObject.start();
         timerToggleButton.innerHTML = "Pause";
     }
-    else if(timerObject.finished()) {
-        timerReset();
+    else if(timerObject.getFinished()) {
+        timerObject.reset();
     }
     else {
         timerObject.pause();
@@ -85,15 +100,10 @@ timerToggleButton.addEventListener("click", function() {
 
 });
 timerResetButton.addEventListener("click", function() {
-    if(!timerObject.running()) {
-        timerReset();
+    if(!timerObject.getRunning()) {
+        timerObject.reset();
     }
 });
-
-function timerReset() {
-    timerObject.reset();
-    timerToggleButton.innerHTML = "Start";
-}
 
 // ===== tabata =====
 
@@ -103,8 +113,7 @@ var tabataSlotsForm = document.getElementById("tabataSlots"),
     tabataResetButton = document.getElementById("tabataReset"),
     tabataInput = document.getElementById("ti1"),
     tabataDisplayContainer = document.getElementById("tabataDisplayContainer"),
-    inputCount = 1,
-    tabataObject = new TabataWrapper(tabataToggleButton);
+    tabataObject = new TabataWrapper(tabataToggleButton, tabataDisplayContainer, document.getElementById("tabataRecentlyUsed"), tabataSlotsForm, tabataCyclesForm);
 
 tabataObject.timerList.push(new Timer(tabataInput, tabataToggleButton, document.getElementById("audiotag1"), tabataObject));
 tabataObject.cycles = 6;
@@ -113,53 +122,25 @@ tabataInput.addEventListener("input", function() {
     tabataObject.timerList[0].formatInput();
 });
 
-function addTabataInput() {
-    inputCount++;
-    var newInput = document.createElement("input");
-    newInput.className = "timeDisplay tabataInput";
-    newInput.id = "ti" + inputCount;
-    newInput.setAttribute("type", "text");
-    newInput.setAttribute("value", "00:00");
-    newInput.setAttribute("autocomplete", "off");
-    tabataDisplayContainer.appendChild(newInput);
-    addSelectAllOnFocus(newInput);
-    tabataObject.timerList.push(new Timer(newInput,tabataToggleButton, document.getElementById("audiotag1"), tabataObject));
-    newInput.addEventListener("input", function() {
-        tabataObject.timerList[newInput.id.substring(2)-1].formatInput();
-    });
-}
-
-function removeTabataInput() {
-    inputCount--;
-    tabataDisplayContainer.removeChild(tabataDisplayContainer.childNodes[inputCount])
-    tabataObject.timerList.pop();
-}
-
 tabataSlotsForm.addEventListener("input", function() {
-    var nr = tabataSlotsForm.value;
-    if(tabataSlotsForm.value > inputCount) {
-        for(var i = 0; inputCount+i < nr; i++) {
-            tabataObject.reset();
-            addTabataInput();
-        }
+    tabataObject.reset();
+    while(tabataSlotsForm.value > tabataObject.timerList.length) {
+        tabataObject.addInput("00:00");
     }
-    else if (tabataSlotsForm.value < inputCount) {
-        for(var i = 0; inputCount-i > nr; i++) {
-            tabataObject.reset();
-            removeTabataInput();
-        }
+    while(tabataSlotsForm.value < tabataObject.timerList.length) {
+        tabataObject.removeInput();
     }
 });
 tabataCyclesForm.addEventListener("input", function() {
     tabataObject.cycles = parseInt(tabataCyclesForm.value, 10);
 });
 tabataToggleButton.addEventListener("click", function() {
-    if(tabataObject.finished) {
-        tabataReset();
-    }
-    else if(!tabataObject.running) {
+    if(!tabataObject.getRunning()) {
         tabataObject.start();
         tabataToggleButton.innerHTML = "Pause";
+    }
+    else if(tabataObject.getFinished()) {
+        tabataReset();
     }
     else {
         tabataObject.pause();

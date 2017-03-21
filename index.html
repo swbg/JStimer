@@ -20,6 +20,9 @@
                     <button class="mainControl" id="stopwatchToggle">Start</button>
                     <button class="mainControl" id="stopwatchReset">Reset</button>
                 </div>
+                <div id="stopwatchLapsHidden">
+                    <button class="mainControl" id="stopwatchLap">Lap</button>
+                </div>
             </div>
 
             <div class="container-hidden timerElement" id="timerContainer">
@@ -29,6 +32,11 @@
                 <div id="control">
                     <button class="mainControl" id="timerToggle">Start</button>
                     <button class="mainControl" id="timerReset">Reset</button>
+                </div>
+                <div class="recentylUsedContainer">
+                    <p>recently used:</p>
+                    <div id="timerRecentlyUsed">
+                    </div>
                 </div>
             </div>
 
@@ -48,11 +56,20 @@
                     <button class="mainControl" id="tabataToggle">Start</button>
                     <button class="mainControl" id="tabataReset">Reset</button>
                 </div>
+                <div class="recentylUsedContainer">
+                    <p>recently used:</p>
+                    <div id="tabataRecentlyUsed">
+                    </div>
+                </div>
             </div>
         </div>
 
         <audio id="audiotag1" src="audio/beep1.wav" preload="auto"></audio>
 
+        <script>function displayCookies() { console.log(document.cookie); }</script>
+        <button onclick="displayCookies()">hier</button>
+
+        <script src="js/memory.js"></script>
         <script src="js/respondingTimer.js"></script>
         <script src="js/timerWrapper.js"></script>
         <script src="js/tabataWrapper.js"></script>
