@@ -1,4 +1,4 @@
-function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slotsInput, cyclesInput) {
+function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slotsInput, cyclesInput, sound) {
     // finished && !running     --> initial state
     // !finished && running     --> timer running
     // !finished && !running    --> timer paused
@@ -51,10 +51,13 @@ function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slot
         this.timerList[currentTimer].reset();
         currentTimer++;
         if(currentTimer < this.timerList.length) {
+            sound.play();
             this.timerList[currentTimer].start();
         }
         else {
             if(this.cycles > currentCycle) {
+                sound.play();
+                sound.play();
                 currentCycle++;
                 currentTimer = 0;
                 this.running = false;

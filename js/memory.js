@@ -63,7 +63,7 @@ function Memory(type, recentlyUsedDisplay, nrSlots, parent) {
         if(list.length > 0) {
             var clearButton = document.createElement("button");
             clearButton.appendChild(document.createTextNode("clear"));
-            clearButton.className = "recentlyUsedButton";
+            clearButton.className = "clearButton";
             recentlyUsedDisplay.appendChild(clearButton);
             clearButton.addEventListener("click", function() {
                 thisMemoryObject.clear();

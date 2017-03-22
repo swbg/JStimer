@@ -6,10 +6,10 @@
     </head>
     <body>
         <div class="wrapper">
-            <div class="nav-container" id="nav">
-                <button class="navControl stopwatchElement" id="stopwatchSelect">Stopwatch</button
-                ><button class="navControl timerElement" id="timerSelect">Timer</button
-                ><button class="navControl tabataElement" id="tabataSelect">Tabata</button>
+            <div class="navContainer" id="nav">
+                <button class="navControl" id="stopwatchSelect">Stopwatch</button
+                ><button class="navControl" id="timerSelect">Timer</button
+                ><button class="navControlActive" id="tabataSelect">Tabata</button>
             </div>
 
             <div class="container-hidden stopwatchElement" id="stopwatchContainer">
@@ -33,10 +33,9 @@
                     <button class="mainControl" id="timerToggle">Start</button>
                     <button class="mainControl" id="timerReset">Reset</button>
                 </div>
-                <div class="recentylUsedContainer">
-                    <p>recently used:</p>
-                    <div id="timerRecentlyUsed">
-                    </div>
+                <div class="recentylUsedContainer" id="timerRecentylUsedContainer">
+                    <p class="recentlyUsedCaption">recently used</p>
+                    <div class="recentlyUsedDisplay" id="timerRecentlyUsed"></div>
                 </div>
             </div>
 
@@ -57,9 +56,8 @@
                     <button class="mainControl" id="tabataReset">Reset</button>
                 </div>
                 <div class="recentylUsedContainer">
-                    <p>recently used:</p>
-                    <div id="tabataRecentlyUsed">
-                    </div>
+                    <p class="recentlyUsedCaption">recently used</p>
+                    <div class="recentlyUsedDisplay" id="tabataRecentlyUsed"></div>
                 </div>
             </div>
         </div>
@@ -67,10 +65,9 @@
         <audio id="audiotag1" src="audio/beep1.wav" preload="auto"></audio>
 
         <script>function displayCookies() { console.log(document.cookie); }</script>
-        <button onclick="displayCookies()">hier</button>
+        <button onclick="displayCookies()" style="display: block;">show cookies</button>
 
         <script src="js/memory.js"></script>
-        <script src="js/respondingTimer.js"></script>
         <script src="js/timerWrapper.js"></script>
         <script src="js/tabataWrapper.js"></script>
         <script src="js/timer.js"></script>

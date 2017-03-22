@@ -8,21 +8,30 @@ var selectStopwatchButton = document.getElementById("stopwatchSelect"),
     tabataContainer = document.getElementById("tabataContainer");
 
 selectStopwatchButton.addEventListener("click", function() {
-    stopwatchContainer.className = "container stopwatchElement";
-    timerContainer.className = "container-hidden timerElement";
-    tabataContainer.className = "container-hidden tabataElement";
+    stopwatchContainer.className = "container";
+    timerContainer.className = "container-hidden";
+    tabataContainer.className = "container-hidden";
+    selectStopwatchButton.className = "navControlActive";
+    selectTimerButton.className = "navControl";
+    selectTabataButton.className = "navControl";
 });
 
 selectTimerButton.addEventListener("click", function() {
-    stopwatchContainer.className = "container-hidden stopwatchElement";
-    timerContainer.className = "container timerElement";
-    tabataContainer.className = "container-hidden tabataElement";
+    stopwatchContainer.className = "container-hidden";
+    timerContainer.className = "container";
+    tabataContainer.className = "container-hidden";
+    selectStopwatchButton.className = "navControl";
+    selectTimerButton.className = "navControlActive";
+    selectTabataButton.className = "navControl";
 });
 
 selectTabataButton.addEventListener("click", function() {
-    stopwatchContainer.className = "container-hidden stopwatchElement";
-    timerContainer.className = "container-hidden timerElement";
-    tabataContainer.className = "container tabataElement";
+    stopwatchContainer.className = "container-hidden";
+    timerContainer.className = "container-hidden";
+    tabataContainer.className = "container";
+    selectStopwatchButton.className = "navControl";
+    selectTimerButton.className = "navControl";
+    selectTabataButton.className = "navControlActive";
 });
 
 // ===== all input forms =====
@@ -113,7 +122,7 @@ var tabataSlotsForm = document.getElementById("tabataSlots"),
     tabataResetButton = document.getElementById("tabataReset"),
     tabataInput = document.getElementById("ti1"),
     tabataDisplayContainer = document.getElementById("tabataDisplayContainer"),
-    tabataObject = new TabataWrapper(tabataToggleButton, tabataDisplayContainer, document.getElementById("tabataRecentlyUsed"), tabataSlotsForm, tabataCyclesForm);
+    tabataObject = new TabataWrapper(tabataToggleButton, tabataDisplayContainer, document.getElementById("tabataRecentlyUsed"), tabataSlotsForm, tabataCyclesForm, document.getElementById("audiotag1"));
 
 tabataObject.timerList.push(new Timer(tabataInput, tabataToggleButton, document.getElementById("audiotag1"), tabataObject));
 tabataObject.cycles = 6;

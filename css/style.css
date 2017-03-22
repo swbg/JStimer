@@ -1,29 +1,20 @@
 body {
     font-family: "Arial", sans-serif;
-    color: #004358;
     text-align: center;
-    box-sizing: border-box;
-}
-
-*, ::before, ::after {
-    box-sizing: inherit;
-    color: inherit;
-    background-color: inherit;
-}
-
-button {
     color: #004358;
+    background-color: #EFEFEF;
 }
 
-button:hover {
-    cursor: pointer;
-    background-color: white;
+* {
+    color: inherit;
+    font-family: inherit;
 }
 
-button.mainControl {
-    width: 150px;
-    height: 50px;
-    border: none;
+.mainControl {
+    width: 8em;
+    height: 3em;
+    border: 1px solid #CDCDCD;
+    background-color: #EFEFEF;
 }
 
 input {
@@ -33,12 +24,7 @@ input {
 }
 
 input:disabled {
-
     color: inherit;
-}
-
-textarea:focus {
-    background-color: red;
 }
 
 .wrapper {
@@ -46,19 +32,27 @@ textarea:focus {
     margin-top: 3em;
 }
 
-.container, .nav-container {
+.container, .navContainer {
     margin: 0 auto;
     text-align: center;
+    background-color: #FFFFFF;
 }
 .container {
-    display: inline-block;
     padding: 1em;
+    border: 1px solid #CDCDCD;
+    z-index: 0;
+    position: relative;
+    margin: 0 auto;
+    margin-top: -1px;
 }
 .container-hidden {
     display: none;
 }
-.nav-container {
+.navContainer {
+    position: relative;
     text-align: left;
+    z-index: 1;
+    background-color: transparent;
 }
 .timeDisplay, .timeDisplayFinished, .timeDisplayActive {
     margin: 0;
@@ -73,37 +67,31 @@ textarea:focus {
     text-align: center;
 }
 .timeDisplayFinished {
-    background-color: red;
+    background-color: #ffd3ca;
 }
 .timeDisplayActive {
-    background-color: #00e600;
+    background-color: #bfdcef;
 }
-.navControl {
-    border: none;
-    width: 27%;
+.navControl, .navControlActive {
+    border: 1px solid #CDCDCD;
+    border-left: none;
+    width: 25%;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
     font-size: 1em;
+}
+.navContainer:first-child {
+    border-left: 1px solid #CDCDCD;
+}
+.navControlActive {
+    border-bottom: 1px solid #FFFFFF;
+    background-color: #FFFFFF;
 }
 :focus {
     outline: none;
 }
 ::-moz-focus-inner {
     border: 0;
-}
-
-/* Adobe Color CC Vitamin C */
-.stopwatchElement {
-    background-color: #FD7400;
-}
-.timerElement {
-    background-color: #BEDB39;
-}
-.tabataElement {
-    background-color: #FFE11A;
-}
-.additionalElement {
-    background-color: #1F8A70;
 }
 
 #tabataPreferences {
@@ -130,14 +118,30 @@ textarea:focus {
     background-color: inherit;
 }
 
+.recentylUsedContainer {
+    margin-top: 2em;
+    text-align: center;
+    padding: 0 3em;
+}
 .recentlyUsedButton {
     border: none;
     display: block;
-    margin: 0 auto;
     font-size: 1em;
+    background-color: #FFFFFF;
+}
+#timerRecentylUsedContainer .recentlyUsedButton {
+    margin: 0.1em auto 0 auto;
 }
 
-.recentylUsedContainer {
+.clearButton {
+    display: block;
+    font-size: 1em;
+    border: 1px solid #CDCDCD;
+    background-color: #EFEFEF;
+    width: 4em;
+    height: 1.5em;
+    margin: 0 auto;
+    margin-top: 0.5em;
 }
 
 .lapsDisplay {
@@ -147,9 +151,24 @@ textarea:focus {
 #stopwatchLapsHidden {
     display: none;
 }
-#stopWatchLaps {
+#stopwatchLaps {
     display: block;
+    margin-top: 2em;
 }
 #laps {
     display: block;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: white;
+}
+.recentlyUsedDisplay button:hover, .clearButton:hover {
+    cursor: pointer;
+    background-color: white;
+}
+.recentlyUsedCaption {
+    border-bottom: 1px solid #CDCDCD;
+    padding-bottom: 0.4em;
+    margin-bottom: 0.5em;
 }
