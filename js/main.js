@@ -82,7 +82,7 @@ stopwatchLapButton.addEventListener("click", function() {
 var timerInput = document.getElementById("timerInput");
 var timerToggleButton = document.getElementById("timerToggle");
 var timerResetButton = document.getElementById("timerReset");
-var timerObject = new TimerWrapper(timerInput, timerToggleButton, document.getElementById("audiotag1"), document.getElementById("timerRecentlyUsed"));
+var timerObject = new TimerWrapper(timerInput, timerToggleButton, document.getElementById("audiotag2"), document.getElementById("timerRecentlyUsed"));
 
 addSelectAllOnFocus(timerInput);
 
@@ -122,7 +122,7 @@ var tabataSlotsForm = document.getElementById("tabataSlots"),
     tabataResetButton = document.getElementById("tabataReset"),
     tabataInput = document.getElementById("ti1"),
     tabataDisplayContainer = document.getElementById("tabataDisplayContainer"),
-    tabataObject = new TabataWrapper(tabataToggleButton, tabataDisplayContainer, document.getElementById("tabataRecentlyUsed"), tabataSlotsForm, tabataCyclesForm, document.getElementById("audiotag1"));
+    tabataObject = new TabataWrapper(tabataToggleButton, tabataDisplayContainer, document.getElementById("tabataRecentlyUsed"), tabataSlotsForm, tabataCyclesForm, document.getElementById("audiotag0"), document.getElementById("audiotag1"), document.getElementById("audiotag2"), document.getElementById("cycleCountInactive"));
 
 tabataObject.timerList.push(new Timer(tabataInput, tabataToggleButton, document.getElementById("audiotag1"), tabataObject));
 tabataObject.cycles = 6;
@@ -158,7 +158,7 @@ tabataToggleButton.addEventListener("click", function() {
 
 });
 tabataResetButton.addEventListener("click", function() {
-    if(!tabataObject.running) {
+    if(!tabataObject.getRunning() || tabataObject.getFinished()) {
         tabataReset();
         tabataToggleButton.innerHTML = "Start";
     }

@@ -172,3 +172,22 @@ button:hover {
     padding-bottom: 0.4em;
     margin-bottom: 0.5em;
 }
+#cycleCountInactive {
+    display: none;
+}
+#cycleCount {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background-color: inherit;
+    padding: 1em;
+    font-size: 1em;
+}
+#cycleCount input {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background-color: inherit;
+    font-size: 1em;
+    margin-top: 0.6em;
+}

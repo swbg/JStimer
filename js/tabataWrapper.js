@@ -1,4 +1,4 @@
-function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slotsInput, cyclesInput, sound) {
+function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slotsInput, cyclesInput, notifySound, cycleSound, finishedSound, cycleCount) {
     // finished && !running     --> initial state
     // !finished && running     --> timer running
     // !finished && !running    --> timer paused
@@ -22,6 +22,7 @@ function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slot
         this.finished = true;
         currentTimer = 0;
         currentCycle = 1;
+        cycleCount.id = "cycleCountInactive";
     };
     this.start = function() {
         if(!this.running) {
@@ -29,6 +30,8 @@ function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slot
                 applyToAll.bind(this)(function(timer) { timer.fixInput(); });
                 this.finished = false;
                 currentCycle = 1;
+                cycleCount.lastChild.value = this.cycles;
+                cycleCount.id = "cycleCount";
 
                 var memoryString = "" + this.cycles + "x";
                 for(var i = 0; i < this.timerList.length; i++) {
@@ -51,19 +54,20 @@ function TabataWrapper(toggleButton, displayContainer, recentlyUsedDisplay, slot
         this.timerList[currentTimer].reset();
         currentTimer++;
         if(currentTimer < this.timerList.length) {
-            sound.play();
+            notifySound.play();
             this.timerList[currentTimer].start();
         }
         else {
+            cycleCount.lastChild.value--;
             if(this.cycles > currentCycle) {
-                sound.play();
-                sound.play();
+                cycleSound.play();
                 currentCycle++;
                 currentTimer = 0;
                 this.running = false;
                 this.start();
             }
             else {
+                finishedSound.play();
                 this.finished = true;
                 this.running = true;
                 toggleButton.innerHTML = "OK";

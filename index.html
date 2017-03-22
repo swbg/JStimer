@@ -51,6 +51,7 @@
                 <div class="displayContainer" id="tabataDisplayContainer"
                     ><input class="timeDisplay tabataInput" type="text" id="ti1" value="00:00" autocomplete="off"
                 ></div>
+                <label id="cycleCountInactive">cycles left<input type="text" disabled autocomplete="off" value="0"></label>
                 <div id="control">
                     <button class="mainControl" id="tabataToggle">Start</button>
                     <button class="mainControl" id="tabataReset">Reset</button>
@@ -62,10 +63,12 @@
             </div>
         </div>
 
-        <audio id="audiotag1" src="audio/beep1.wav" preload="auto"></audio>
+        <audio id="audiotag0" src="audio/beep1.wav" preload="auto"></audio>
+        <audio id="audiotag1" src="audio/beep3.wav" preload="auto"></audio>
+        <audio id="audiotag2" src="audio/beep6.wav" preload="auto"></audio>
 
-        <script>function displayCookies() { console.log(document.cookie); }</script>
-        <button onclick="displayCookies()" style="display: block;">show cookies</button>
+        <!--script>function displayCookies() { console.log(document.cookie); }</script>
+        <button onclick="displayCookies()" style="display: block;">show cookies</button-->
 
         <script src="js/memory.js"></script>
         <script src="js/timerWrapper.js"></script>
