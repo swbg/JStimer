@@ -24,4 +24,4 @@ Enter the countdown time by clicking the number display and typing the digits us
 
 Tabata is a form of HIIT with cycles of successive workout/pause intervals. Select the number of intervals per cycle via the _Slots_ control and the number of cycles via the _Cycles_ control. Enter the time for each interval by clicking the number display and typing the digits using your keyboard. Use the _Start_, _Pause_, _Resume_, and _Reset_ buttons to control the timer. The active interval (slot) is indicated visually. The end of each interval is indicated by a single beep. The end of each cycle is indicated by three beeps. The end of the entire workout time is indicated by six beeps. Access recently used Tabata configurations from the history menu below the controls (clear by clicking _clear_).
 
-<img src="images/tabata.jpg" width="422" alt="Tabata controls">
+<img src="images/tabata.jpg" width="422" height="657" alt="Tabata controls">
